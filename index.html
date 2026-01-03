@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGIS Kota Bandung</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div class="landing-page" id="landingPage">
+        <div class="bg-animation">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="landing-content">
+            <h1><i class="fas fa-map-marked-alt"></i> WebGIS Bandung</h1>
+            <p>Sistem Informasi Geografis Interaktif Kota Bandung</p>
+            <button class="explore-btn" onclick="startExploration()">
+                Eksplorasi Sekarang <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="main-app" id="mainApp">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <i class="fas fa-map-marked-alt"></i> WebGIS Bandung
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#peta" class="nav-link">Peta</a></li>
+                <li><a href="#informasi" class="nav-link">Informasi</a></li>
+                <li><a href="#tentang" class="nav-link">Tentang</a></li>
+                <li><a href="#kontak" class="nav-link">Kontak</a></li>
+            </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </nav>
+
+        <!-- 1. HOME SECTION -->
+        <section id="home">
+            <div class="bg-animation">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <div class="home-content">
+                <h1>Selamat Datang di WebGIS Kota Bandung</h1>
+                <p class="subtitle">Platform Pemetaan Digital Terpadu</p>
+                <p class="description">
+                    WebGIS Kota Bandung adalah platform pemetaan interaktif yang memudahkan Anda menjelajahi 
+                    data geografis Kota Bandung secara real-time. Dapatkan akses ke peta interaktif dengan berbagai 
+                    layer informasi, pantau kondisi cuaca terkini, baca berita terbaru tentang pembangunan kota, 
+                    dan jelajahi galeri foto tempat-tempat wisata terkenal di Bandung.
+                </p>
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <i class="fas fa-map"></i>
+                        <h3>Peta Interaktif</h3>
+                        <p>Jelajahi peta Bandung dengan berbagai layer dan pencarian lokasi</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-cloud-sun"></i>
+                        <h3>Data Cuaca Real-time</h3>
+                        <p>Pantau kondisi cuaca terkini di Kota Bandung</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>Berita & Galeri</h3>
+                        <p>Baca berita terbaru dan jelajahi destinasi wisata populer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CUACA SECTION -->
+        </section>
+            <div class="real-time">
+                 <h3>Data Cuaca Real-time UPI Bandung</h3>
+            </div>
+            <div class="weather-container">
+                <!-- Cuaca Section -->
+                <div class="cuaca-container">
+                    <div class="cuaca-header">
+                        <h3><i class="fas fa-cloud"></i> Cuaca UPI Bandung</h3>
+                        <span class="cuaca-update" id="cuacaUpdate">Memuat...</span>
+                    </div>
+                    <div class="cuaca-grid">
+                        <div class="cuaca-main">
+                            <div class="cuaca-temp">
+                                <div class="temp-display">
+                                    <span class="temp-value" id="tempValue">--</span>
+                                    <span class="temp-unit">°C</span>
+                                </div>
+                                <div class="cuaca-kondisi">
+                                    <i id="cuacaIcon" class="fas fa-cloud"></i>
+                                    <span id="cuacaDesc">Memuat data...</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-feels">
+                                <p><strong>Terasa seperti</strong></p>
+                                <p id="feelsLike">--°C</p>
+                            </div>
+                        </div>
+
+                        <div class="cuaca-details">
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-droplet"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>Kelembaban</label>
+                                    <span id="humidity">--%</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-wind"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>Kecepatan Angin</label>
+                                    <span id="windSpeed">-- km/h</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-gauge"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>Tekanan Udara</label>
+                                    <span id="pressure">-- mb</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-eye"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>Visibilitas</label>
+                                    <span id="visibility">-- km</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-sun"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>UV Index</label>
+                                    <span id="uvIndex">--</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-cloud-rain"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>Curah Hujan</label>
+                                    <span id="rainfall">-- mm</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-sunrise"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>Sunrise</label>
+                                    <span id="sunrise">--:--</span>
+                                </div>
+                            </div>
+                            <div class="cuaca-item">
+                                <div class="cuaca-item-icon"><i class="fas fa-sunset"></i></div>
+                                <div class="cuaca-item-content">
+                                    <label>Sunset</label>
+                                    <span id="sunset">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               <!-- Map Section -->
+        <section id="map">
+            <div class="map-container">
+                <h2>Peta Interaktif Kota Bandung</h2>
+                <p>Peta interaktif yang menampilkan data spasial Kota Bandung dari berbagai sumber.</p>
+                <iframe class="map-frame" src="https://legendary-sundae-d9eeb3.netlify.app/" frameborder="0"></iframe>
+            </div>
+        </section>
+
+        <!-- 3. INFORMASI SECTION -->
+        <section id="informasi">
+            <div class="informasi-statistik">
+                <div class="section-header">
+                    <h2>Informasi & Statistik Kota Bandung</h2>
+                    <p>Data dan fakta tentang WebGIS Kota Bandung</p>
+                </div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Total Layer</h3>
+                        <div class="number">15+</div>
+                        <p>Layer data geografis tersedia</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-database"></i>
+                        <h3>Data Points</h3>
+                        <div class="number">5000+</div>
+                        <p>Titik data terintegrasi</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Pengguna Aktif</h3>
+                        <div class="number">1200+</div>
+                        <p>Pengguna terdaftar</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Update Harian</h3>
+                        <div class="number">24/7</div>
+                        <p>Pembaruan data real-time</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-download"></i>
+                        <h3>Download</h3>
+                        <div class="number">10K+</div>
+                        <p>Data telah diunduh</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-globe"></i>
+                        <h3>Coverage Area</h3>
+                        <div class="number">167 km²</div>
+                        <p>Luas area Kota Bandung</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="berita-galeri">
+                <div class="section-header">
+                    <h2>Berita & Galeri Kota Bandung</h2>
+                    <p>Liputan terbaru dan dokumentasi visual</p>
+                </div>
+
+                <div class="tab-navigation">
+                    <button class="tab-btn active" onclick="switchTab('berita')">
+                        <i class="fas fa-newspaper"></i> Berita
+                    </button>
+                    <button class="tab-btn" onclick="switchTab('galeri')">
+                        <i class="fas fa-images"></i> Galeri Foto
+                    </button>
+                </div>
+
+                <div id="berita" class="tab-content active">
+                    <div class="berita-grid">
+                        <div class="berita-card">
+                            <div class="berita-image">
+                                <img src="https://images.unsplash.com/photo-1553531088-be0eead2e4d2?w=400&h=200&fit=crop" alt="Infrastruktur">
+                            </div>
+                            <div class="berita-content">
+                                <span class="berita-kategori">Infrastruktur</span>
+                                <h3>Pembangunan Tol Lingkar Selatan</h3>
+                                <p>Proyek tol lingkar selatan terus berkembang dengan target penyelesaian 80% di akhir tahun 2026.</p>
+                                <div class="berita-meta">
+                                    <span><i class="fas fa-calendar"></i> 15 Desember 2025</span>
+                                </div>
+                                <a href="https://news.google.com/search?q=bandung+infrastructure" target="_blank" class="berita-link">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+
+                        <div class="berita-card">
+                            <div class="berita-image">
+                                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=200&fit=crop" alt="Lingkungan">
+                            </div>
+                            <div class="berita-content">
+                                <span class="berita-kategori">Lingkungan</span>
+                                <h3>Program Penghijauan Kota 2026</h3>
+                                <p>Pemerintah kota menargetkan penanaman 50,000 pohon untuk meningkatkan kualitas udara.</p>
+                                <div class="berita-meta">
+                                    <span><i class="fas fa-calendar"></i> 10 Desember 2025</span>
+                                </div>
+                                <a href="https://news.google.com/search?q=bandung+lingkungan" target="_blank" class="berita-link">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+
+                        <div class="berita-card">
+                            <div class="berita-image">
+                                <img src="https://images.unsplash.com/photo-1552628052-987e29fc3ffe?w=400&h=200&fit=crop" alt="Transportasi">
+                            </div>
+                            <div class="berita-content">
+                                <span class="berita-kategori">Transportasi</span>
+                                <h3>Ekstensi Jalur LRT Bandung</h3>
+                                <p>Perluasan jalur LRT mencakup 3 stasiun baru yang akan menghubungkan area Cimahi dengan pusat kota.</p>
+                                <div class="berita-meta">
+                                    <span><i class="fas fa-calendar"></i> 5 Desember 2025</span>
+                                </div>
+                                <a href="https://news.google.com/search?q=bandung+lrt" target="_blank" class="berita-link">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+
+                        <div class="berita-card">
+                            <div class="berita-image">
+                                <img src="https://images.unsplash.com/photo-1432405972618-c60b0b51e1f1?w=400&h=200&fit=crop" alt="Pendidikan">
+                            </div>
+                            <div class="berita-content">
+                                <span class="berita-kategori">Pendidikan</span>
+                                <h3>Peluncuran Smart Campus Initiative</h3>
+                                <p>Universitas terkemuka di Bandung meluncurkan inisiatif kampus pintar dengan integrasi teknologi GIS.</p>
+                                <div class="berita-meta">
+                                    <span><i class="fas fa-calendar"></i> 30 November 2025</span>
+                                </div>
+                                <a href="https://news.google.com/search?q=bandung+education" target="_blank" class="berita-link">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="galeri" class="tab-content">
+                    <div class="galeri-grid">
+                        <div class="galeri-item">
+                            <div class="galeri-image">
+                                <img src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/1200x675/photo/2025/01/08/2166944389.png" alt="Gedung Sate">
+                            </div>
+                            <div class="galeri-info">
+                                <h3>Gedung Sate</h3>
+                                <p>Landmark bersejarah Kota Bandung</p>
+                            </div>
+                        </div>
+
+                        <div class="galeri-item">
+                            <div class="galeri-image">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Lembang">
+                            </div>
+                            <div class="galeri-info">
+                                <h3>Lembang Panorama</h3>
+                                <p>Destinasi wisata alam</p>
+                            </div>
+                        </div>
+
+                        <div class="galeri-item">
+                            <div class="galeri-image">
+                                <img src="https://asset.kompas.com/crops/739m9a_zq-WWwYeFQgq4XQ6E8rk=/0x49:1000x715/1200x800/data/photo/2019/12/26/5e045866d9090.jpg" alt="Alun-Alun">
+                            </div>
+                            <div class="galeri-info">
+                                <h3>Alun-Alun Bandung</h3>
+                                <p>Pusat kegiatan masyarakat</p>
+                            </div>
+                        </div>
+
+                        <div class="galeri-item">
+                            <div class="galeri-image">
+                                <img src="https://img.okezone.com/content/2020/10/26/408/2299441/danau-kawah-putih-wisata-alam-eksotis-nan-legendaris-di-bandung-VTi6AvxpFR.jpg" alt="Kawah Putih">
+                            </div>
+                            <div class="galeri-info">
+                                <h3>Kawah Putih</h3>
+                                <p>Danau kawah unik</p>
+                            </div>
+                        </div>
+
+                        <div class="galeri-item">
+                            <div class="galeri-image">
+                                <img src="https://ultimagz.com/wp-content/uploads/5622363931_92c8471ac7_b.jpg" alt="Braga Street">
+                            </div>
+                            <div class="galeri-info">
+                                <h3>Braga Street</h3>
+                                <p>Kawasan bersejarah</p>
+                            </div>
+                        </div>
+
+                        <div class="galeri-item">
+                            <div class="galeri-image">
+                                <img src="https://itb.ac.id/files/100/20140116/1389880248.jpg" alt="ITB">
+                            </div>
+                            <div class="galeri-info">
+                                <h3>ITB Ganesha</h3>
+                                <p>Institut Teknologi Bandung</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TENTANG SECTION -->
+        <section id="tentang">
+            <div class="section-header">
+                <h2>Tentang Pembuat</h2>
+                <p>Mengenal kreator WebGIS Kota Bandung</p>
+            </div>
+            <div class="about-container">
+                <div class="about-image pembuat-photo">
+                    <img src="asset/fotofadhiil.jpeg" alt="Foto Fadil">
+                </div>
+                <div class="about-text pembuat-info">
+                    <h3>Fadil</h3>
+                    <p class="role">Mahasiswa SAIG - Semester 4</p>
+                    
+                    <p>
+                        Seorang mahasiswa Program Studi Sains Informasi Geografi (SAIG) yang sedang menjalani 
+                        perjalanan akademik menuju semester 4. Saat ini fokus pada pembelajaran pembuatan WebGIS 
+                        sebagai bagian dari eksplorasi di bidang teknologi geospasial.
+                    </p>
+                    
+                    <div class="projects-section">
+                        <h4>Antusiasme Pribadi Gue</h4>
+                        <div class="project-item">
+                            <i class="fas fa-map"></i>
+                            <span>Belajar WebGIS</span>
+                        </div>
+                        <div class="project-item">
+                            <i class="fas fa-laptop"></i>
+                            <span>GIS & Remote Sensing</span>
+                        </div>
+                        <div class="project-item">
+                            <i class="fas fa-compass"></i>
+                            <span>Land Survey & Mapping</span>
+                        </div>
+                    </div>
+                    
+                    <div class="spotify-section">
+                        <div class="spotify-header">
+                            <i class="fas fa-music"></i>
+                            <h4>Soundtrack Pengembangan</h4>
+                        </div>
+                        <p class="spotify-subtitle">Dikembangkan sambil enjoy dengerin album yang menurut gue bagus:</p>
+                        <div class="setlist">
+                            <a href="https://open.spotify.com/album/1Mhq1R6xMuXuWUgbl6B6Iv?si=UG-aoYG_SN-lmsu9dUHz9Q" target="_blank" class="setlist-item">
+                                <i class="fas fa-music"></i>
+                                <span>Dalam Dinamika</span>
+                            </a>
+                            <a href="https://open.spotify.com/album/2ZI3XeIrCM1PsOtK3rlMth?si=dwqHWE7HSsyLQXbumyqgCQ" target="_blank" class="setlist-item">
+                                <i class="fas fa-music"></i>
+                                <span>Memorandum</span>
+                            </a>
+                            <a href="https://open.spotify.com/album/5PENwZWWNzHhPfYcvvv2Kf?si=2QujOVGKTi-0MzuKGvhwqw" target="_blank" class="setlist-item">
+                                <i class="fas fa-music"></i>
+                                <span>Efek Rumah Kaca</span>
+                            </a>
+                            <a href="https://open.spotify.com/album/5XepVOJPD8w4yF9SaKduLG?si=FPQM7uKWTje5JHxNmAlp2w" target="_blank" class="setlist-item">
+                                <i class="fas fa-music"></i>
+                                <span>1+2</span>
+                            </a>
+                        </div>
+                        <div class="spotify-card">
+                            <i class="fab fa-spotify"></i>
+                            <div class="spotify-info">
+                                <h5>Perunggu</h5>
+                                <p>Band Pulang Ngantor</p>
+                            </div>
+                            <a href="https://open.spotify.com/artist/0NbKRRBuiIUwS9irPvi7wD?si=o5a4f_y7QeGstD_M6s5WyA" target="_blank" class="spotify-btn">
+                                <i class="fab fa-spotify"></i> Spotify
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. KONTAK SECTION -->
+        <section id="kontak">
+            <div class="section-header">
+                <h2>Hubungi Kami</h2>
+                <p>Sampaikan pertanyaan atau masukan Anda</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Alamat</h4>
+                            <p>Yang Penting Ada Casan Kopi + Signature Sebungkus<br>Bandung, Jawa Barat 40123</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telepon</h4>
+                            <p>0821-2361-1848</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>ryyfary@gmail.com<br>fadilfary17@upi.edu</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Jam Operasional</h4>
+                            <p>Tutup Kalo Sholat 5 Waktu</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 25px;">Kirim Pesan</h3>
+                    <form action="https://formspree.io/f/mwvpblov" method="POST">
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="nama" required placeholder="Masukkan nama Anda">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" required placeholder="nama@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Subjek</label>
+                            <input type="text" name="subjek" required placeholder="Subjek pesan">
+                        </div>
+                        <div class="form-group">
+                            <label>Pesan</label>
+                            <textarea name="pesan" required placeholder="Tulis pesan Anda di sini..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Kirim Pesan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>WebGIS Kota Bandung</strong> &copy; 2026 - Sistem Informasi Geografis</p>
+            <p>Dikembangkan dengan <i class="fas fa-heart" style="color: #e74c3c;"></i> untuk kemajuan Kota Bandung</p>
+        </div>
+    </div>
+
+    <!-- Library JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shpjs/4.0.4/shp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
